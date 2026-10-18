@@ -58,6 +58,14 @@ input,select{font:inherit;color:var(--tx);background:#0a0a16;border:1px solid va
 @keyframes gl{50%{box-shadow:0 0 22px var(--ac)}}
 .third{max-width:300px;margin:8px 6px}
 .hint{color:var(--mu);font-size:.85rem;margin:18px 6px 0}
+.ib{width:36px;height:36px;padding:0;border-radius:50%;font-family:'Russo One',sans-serif}
+#im{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:#05050bd9;z-index:90;padding:16px}
+#im.on{display:flex}
+.mb{position:relative;max-width:560px;max-height:86vh;overflow:auto;background:var(--pn);border:1px solid var(--ac);border-radius:10px;padding:24px;box-shadow:0 0 40px #7b2cff33}
+.mb h2{margin-bottom:10px;color:var(--ac);font-size:1.4rem}
+.mb h3{font-size:1rem;margin:16px 0 6px}
+.mb p{margin:0 0 8px;line-height:1.55;font-size:.95rem}
+.x{position:absolute;top:12px;right:12px;padding:4px 10px}
 #ov{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:#05050bec;z-index:100}
 #ov.on{display:flex}
 .pd{text-align:center;padding:20px}
@@ -80,8 +88,25 @@ body.proj .rc{min-width:310px}
   <button id="bt" onclick="podium()" hidden>🏆 Переможець</button>
   <button id="bs" onclick="back()" hidden>⚙ Налаштування</button>
   <button onclick="fs()">⛶ Проєктор</button>
+  <button class="ib" onclick="info()" aria-label="Як це працює" title="Як це працює">i</button>
 </header>
 <main id="app"></main>
+<div id="im" onclick="if(event.target===this)ci()"><div class="mb" role="dialog" aria-label="Як це працює">
+  <button class="x" onclick="ci()" aria-label="Закрити">✕</button>
+  <h2>Як це працює</h2>
+  <h3>Формати матчу (Bo)</h3>
+  <p>Bo означає «кращий з». Число — максимум ігор у матчі між двома командами.</p>
+  <p><b>Bo1</b> — одна гра, переможець іде далі. Найшвидше, але багато залежить від випадку.<br>
+  <b>Bo3</b> — до 2 перемог (рахунок 2:0 або 2:1). Оптимально для більшості турнірів.<br>
+  <b>Bo5</b> — до 3 перемог. Найчесніше, але найдовше.</p>
+  <h3>Як вводити результати</h3>
+  <p>Біля кожної команди рахунок — це кількість виграних ігор у матчі. Після кожної зіграної гри натисніть «+» біля переможця. Коли команда набирає потрібну кількість перемог, вона автоматично переходить у наступний раунд.</p>
+  <p>Помилилися? Натисніть «−» біля переможця, і наступні раунди перерахуються.</p>
+  <h3>Сітка</h3>
+  <p>Турнір на виліт: програв матч — вибув. Якщо команд не 4, 8 чи 16, частина команд проходить перший раунд автоматично (BYE). Підсвічені матчі готові до гри. Півфіналісти, що програли, грають матч за 3 місце.</p>
+  <h3>Збереження і показ</h3>
+  <p>Усе зберігається в браузері цього комп'ютера, тож сторінку можна перезавантажувати. Кнопка «Проєктор» вмикає повноекранний режим із більшим шрифтом.</p>
+</div></div>
 <div id="ov"></div>
 <canvas id="cf"></canvas>
 <script>
@@ -164,7 +189,7 @@ function bracket(){
   S.rounds.forEach((c,r)=>{h+=`<div class="rc"><h4>${rn(r)}</h4><div class="col">${c.map((m,i)=>card(m,r,i)).join('')}</div></div>`});
   h+='</div>';
   if(S.third&&S.third.a!=null&&S.third.b!=null)h+=`<div class="third"><h4>Матч за 3 місце</h4>${card(S.third,-1,0)}</div>`;
-  return h+`<p class="hint">Рахунок — це виграні ігри в матчі (Bo${S.bo}: до ${need()} перемог). Коли команда набирає потрібну кількість, вона автоматично йде далі. Щоб виправити помилку, натисніть − у переможця.</p>`;
+  return h;
 }
 function setup(){
   return`<section class="card"><h2>Налаштування турніру</h2>
@@ -183,6 +208,9 @@ function setup(){
 function add(){S.teams.push('Команда '+(S.teams.length+1));save();render();const a=document.querySelectorAll('.tr input');a[a.length-1].focus();a[a.length-1].select()}
 function rm(i){if(S.teams.length<=2){alert('Потрібно мінімум 2 команди');return}S.teams.splice(i,1);save();render()}
 function back(){if(confirm('Повернутися до налаштувань? Поточна сітка й результати будуть скинуті.')){S.started=false;S.rounds=[];S.third=null;S.champ=null;save();render()}}
+function info(){$('#im').classList.add('on')}
+function ci(){$('#im').classList.remove('on')}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')ci()});
 function fs(){document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen().catch(()=>{})}
 document.addEventListener('fullscreenchange',()=>document.body.classList.toggle('proj',!!document.fullscreenElement));
 
