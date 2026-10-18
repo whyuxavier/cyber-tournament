@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Кібертурнір</title>
+<link rel="icon" id="fv" type="image/svg+xml" href="data:,">
+<link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;600;800&family=Russo+One&display=swap" rel="stylesheet">
+<style>
+:root{--ac:#ffd400;--bg:#07070f;--pn:#12121f;--ln:#2b2b48;--tx:#e9e9f7;--mu:#8888a8}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;color:var(--tx);font-family:'Exo 2',system-ui,sans-serif;
+background:radial-gradient(900px 500px at 15% -10%,#2b1163 0,transparent 60%),radial-gradient(800px 450px at 100% 0,#003347 0,transparent 55%),
+repeating-linear-gradient(0deg,transparent 0 39px,#ffffff06 39px 40px),var(--bg)}
+header{display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:14px 22px;border-bottom:1px solid var(--ln);background:#0b0b17cc;position:sticky;top:0;z-index:5;backdrop-filter:blur(6px)}
+h1,h2,h3,h4{font-family:'Russo One','Exo 2',sans-serif;font-weight:400;margin:0}
+#tt{font-size:1.5rem;color:var(--ac);text-shadow:0 0 18px var(--ac)}
+#gm{padding:3px 12px;border:1px solid var(--ac);border-radius:4px;color:var(--ac);font-weight:600;font-size:.9rem}
+.sp{flex:1}
+button{font:inherit;cursor:pointer;color:var(--tx);background:#1c1c32;border:1px solid var(--ln);border-radius:6px;padding:8px 14px;transition:.15s}
+button:hover{border-color:var(--ac);color:var(--ac)}
+button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--ac);outline-offset:2px}
+main{padding:22px}
+.card{max-width:760px;margin:0 auto;background:var(--pn);border:1px solid var(--ln);border-radius:10px;padding:24px;box-shadow:0 0 40px #7b2cff22}
+.card h2{font-size:1.5rem;margin-bottom:16px}
+.card h3{margin:22px 0 10px;font-size:1.1rem}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+label{display:flex;flex-direction:column;gap:6px;color:var(--mu);font-size:.85rem}
+input,select{font:inherit;color:var(--tx);background:#0a0a16;border:1px solid var(--ln);border-radius:6px;padding:9px 11px;width:100%}
+.sw{display:flex;gap:10px;padding-top:4px}
+.sw button{width:34px;height:34px;padding:0;border-radius:50%}
+.sw .on{outline:2px solid #fff;outline-offset:2px}
+.tr{display:grid;grid-template-columns:28px 1fr 38px;gap:8px;align-items:center;margin-bottom:8px}
+.tr span{color:var(--mu);text-align:center}
+.row{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-top:16px}
+.row label{flex-direction:row;align-items:center;color:var(--tx);font-size:.95rem}
+.row input{width:auto}
+.go{background:var(--ac);color:#111;border-color:var(--ac);font-weight:800;padding:12px 26px;font-size:1.05rem;box-shadow:0 0 22px var(--ac)}
+.go:hover{color:#111;filter:brightness(1.1)}
+.br{display:flex;gap:44px;overflow-x:auto;padding:6px 6px 22px;min-height:60vh}
+.rc{display:flex;flex-direction:column;min-width:250px}
+.rc h4,.third h4{margin-bottom:14px;color:var(--mu);font-size:1rem}
+.col{flex:1;display:flex;flex-direction:column;justify-content:space-around;gap:16px}
+.m{position:relative;background:var(--pn);border:1px solid var(--ln);border-radius:8px;overflow:visible}
+.rc:not(:last-child) .m::after{content:"";position:absolute;left:100%;top:50%;width:22px;border-top:2px solid var(--ln)}
+.rc:not(:first-child) .m::before{content:"";position:absolute;right:100%;top:50%;width:22px;border-top:2px solid var(--ln)}
+.t{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:10px 12px;font-weight:600;min-height:46px}
+.t+.t{border-top:1px solid var(--ln)}
+.t i{color:var(--mu);font-weight:400}
+.t.w{background:linear-gradient(90deg,#ffffff14,transparent);color:var(--ac)}
+.t.l{opacity:.45}
+.c{display:flex;align-items:center;gap:6px}
+.c b{min-width:22px;text-align:center;font-size:1.15rem}
+.c button{padding:2px 9px;line-height:1.3}
+.c em{color:var(--mu);font-size:.8rem}
+.m.live{border-color:var(--ac);animation:gl 2s ease-in-out infinite}
+.m.done{border-color:#3a3a5c}
+@keyframes gl{50%{box-shadow:0 0 22px var(--ac)}}
+.third{max-width:300px;margin:8px 6px}
+.hint{color:var(--mu);font-size:.85rem;margin:18px 6px 0}
+#ov{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:#05050bec;z-index:100}
+#ov.on{display:flex}
+.pd{text-align:center;padding:20px}
+.pd img{max-height:42vh;max-width:80vw;filter:drop-shadow(0 0 40px var(--ac))}
+.tp svg{height:38vh;max-height:300px;width:auto;filter:drop-shadow(0 0 30px var(--ac))}
+.pd .k{color:var(--mu);margin:10px 0 0}
+.pd h1{font-size:clamp(2.2rem,7vw,4.5rem);color:var(--ac);text-shadow:0 0 30px var(--ac);margin:6px 0 10px}
+.pd .s{font-size:1.2rem;margin-bottom:22px}
+#cf{position:fixed;inset:0;pointer-events:none;z-index:101}
+body.proj main{padding:30px}
+body.proj .t{font-size:1.3rem;min-height:56px}
+body.proj .rc{min-width:310px}
+@media(max-width:620px){.g2{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){.m.live{animation:none}}
+</style>
+</head>
+<body>
+<header>
+  <h1 id="tt"></h1><span id="gm"></span><span class="sp"></span>
+  <button id="bt" onclick="podium()" hidden>🏆 Переможець</button>
+  <button id="bs" onclick="back()" hidden>⚙ Налаштування</button>
+  <button onclick="fs()">⛶ Проєктор</button>
+</header>
+<main id="app"></main>
+<div id="ov"></div>
+<canvas id="cf"></canvas>
+<script>
+const TROPHY='https://event.supercell.com/brawlstars/assets/how-to-compete/images/1sQhdJ5eADXBnaiX5OY05m.png';
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function def(){return{name:'Шкільний кубок',game:'Brawl Stars',ac:'#ffd400',bo:3,shuf:true,
+  teams:Array.from({length:6},(_,i)=>'Команда '+(i+1)),started:false,rounds:[],third:null,champ:null}}
+let S=def();
+try{const d=JSON.parse(localStorage.getItem('cybercup'));if(d&&d.teams)S=d}catch(e){}
+function save(){try{localStorage.setItem('cybercup',JSON.stringify(S))}catch(e){}}
+function sv(){save();hdr()}
+function need(){return(S.bo+1)/2}
+
+/* ---------- логіка сітки ---------- */
+function seedOrder(n){let o=[0];while(o.length<n){const l=o.length*2;o=o.flatMap(x=>[x,l-1-x])}return o}
+function win(m){if(m.bye)return m.a!=null?m.a:m.b;const n=need();return m.sa>=n?m.a:m.sb>=n?m.b:null}
+function lose(m){const w=win(m);return(w==null||m.bye)?null:(w===m.a?m.b:m.a)}
+function up(m,a,b){if(m.a!==a||m.b!==b){m.a=a;m.b=b;m.sa=0;m.sb=0}}
+function prop(){
+  const R=S.rounds;
+  for(let r=1;r<R.length;r++)R[r].forEach((m,i)=>up(m,win(R[r-1][2*i]),win(R[r-1][2*i+1])));
+  if(S.third){const p=R[R.length-2];up(S.third,lose(p[0]),lose(p[1]))}
+}
+function start(){
+  const t=S.teams.map((x,i)=>x.trim()||'Команда '+(i+1)),n=t.length;
+  if(n<2){alert('Потрібно мінімум 2 команди');return}
+  S.teams=t;
+  const ids=t.map((_,i)=>i);
+  if(S.shuf)ids.sort(()=>Math.random()-.5);
+  const size=2**Math.ceil(Math.log2(n)),ord=seedOrder(size);
+  const g=k=>ord[k]<n?ids[ord[k]]:null;
+  const r0=[];
+  for(let i=0;i<size/2;i++){const a=g(2*i),b=g(2*i+1);r0.push({a,b,sa:0,sb:0,bye:a==null||b==null})}
+  S.rounds=[r0];
+  for(let k=size/4;k>=1;k/=2)S.rounds.push(Array.from({length:k},()=>({a:null,b:null,sa:0,sb:0})));
+  S.third=S.rounds.length>=2?{a:null,b:null,sa:0,sb:0}:null;
+  S.started=true;S.champ=null;
+  prop();save();render();
+}
+function sc(r,i,k,d){
+  const m=r<0?S.third:S.rounds[r][i];
+  if(m.a==null||m.b==null||m.bye)return;
+  if(d>0&&win(m)!=null)return;
+  m[k]=Math.max(0,Math.min(need(),m[k]+d));
+  prop();save();render();chk();
+}
+function chk(){
+  const f=S.rounds[S.rounds.length-1][0],w=win(f);
+  if(w!=null&&S.champ!==w){S.champ=w;save();podium()}
+  else if(w==null&&S.champ!=null){S.champ=null;save()}
+  hdr();
+}
+
+/* ---------- відображення ---------- */
+function isBS(){return/brawl\s*-?\s*stars|бравл\s*-?\s*старс/i.test(S.game||'')}
+function trophySvg(c){return`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><path d="M18 6h28v16c0 9-6 16-14 16S18 31 18 22z" fill="${c}"/><path d="M18 11H8c0 10 4 17 12 19M46 11h10c0 10-4 17-12 19" fill="none" stroke="${c}" stroke-width="4"/><rect x="29" y="37" width="6" height="11" fill="${c}"/><rect x="19" y="48" width="26" height="9" rx="2" fill="${c}"/></svg>`}
+function hdr(){
+  $('#fv').href='data:image/svg+xml,'+encodeURIComponent(trophySvg(S.ac));
+  $('#tt').textContent=S.name||'Кібертурнір';
+  $('#gm').textContent=S.game;$('#gm').hidden=!S.game;
+  $('#bs').hidden=!S.started;$('#bt').hidden=S.champ==null;
+  document.documentElement.style.setProperty('--ac',S.ac);
+}
+function render(){hdr();$('#app').innerHTML=S.started?bracket():setup()}
+function rn(r){const k=S.rounds.length-1-r;return k==0?'Фінал':k==1?'Півфінал':k==2?'Чвертьфінал':'Раунд '+(r+1)}
+function card(m,r,i){
+  const w=win(m),rd=m.a!=null&&m.b!=null&&!m.bye;
+  const row=s=>{
+    const t=m[s],v=m['s'+s],isw=w!=null&&t!=null&&w===t,isl=w!=null&&t!=null&&w!==t;
+    const ctl=rd?`<span class="c"><button onclick="sc(${r},${i},'s${s}',-1)" aria-label="мінус">−</button><b>${v}</b><button onclick="sc(${r},${i},'s${s}',1)" aria-label="плюс">+</button></span>`
+      :(m.bye&&t!=null?'<span class="c"><em>проходить далі</em></span>':'');
+    const lb=t==null?(m.bye?'<i>BYE</i>':'<i>Очікується…</i>'):esc(S.teams[t]);
+    return`<div class="t${isw?' w':''}${isl?' l':''}"><span>${lb}</span>${ctl}</div>`;
+  };
+  return`<div class="m${rd&&w==null?' live':''}${w!=null?' done':''}">${row('a')}${row('b')}</div>`;
+}
+function bracket(){
+  let h='<div class="br">';
+  S.rounds.forEach((c,r)=>{h+=`<div class="rc"><h4>${rn(r)}</h4><div class="col">${c.map((m,i)=>card(m,r,i)).join('')}</div></div>`});
+  h+='</div>';
+  if(S.third&&S.third.a!=null&&S.third.b!=null)h+=`<div class="third"><h4>Матч за 3 місце</h4>${card(S.third,-1,0)}</div>`;
+  return h+`<p class="hint">Рахунок — це виграні ігри в матчі (Bo${S.bo}: до ${need()} перемог). Коли команда набирає потрібну кількість, вона автоматично йде далі. Щоб виправити помилку, натисніть − у переможця.</p>`;
+}
+function setup(){
+  return`<section class="card"><h2>Налаштування турніру</h2>
+  <div class="g2">
+   <label>Назва турніру<input value="${esc(S.name)}" oninput="S.name=this.value;sv()"></label>
+   <label>Гра<input value="${esc(S.game)}" oninput="S.game=this.value;sv()"></label>
+   <label>Формат матчу<select onchange="S.bo=+this.value;sv()">${[1,3,5].map(b=>`<option value="${b}"${S.bo==b?' selected':''}>Bo${b} — до ${(b+1)/2} перемог</option>`).join('')}</select></label>
+   <label>Колір акценту<div class="sw">${['#ffd400','#00e5ff','#ff2d95','#39ff88','#ff7a1a'].map(c=>`<button style="background:${c}" class="${S.ac==c?'on':''}" onclick="S.ac='${c}';sv();render()" aria-label="колір"></button>`).join('')}</div></label>
+  </div>
+  <h3>Команди: ${S.teams.length}</h3>
+  ${S.teams.map((t,i)=>`<div class="tr"><span>${i+1}</span><input value="${esc(t)}" oninput="S.teams[${i}]=this.value;save()"><button onclick="rm(${i})" aria-label="видалити">✕</button></div>`).join('')}
+  <div class="row"><button onclick="add()">+ Додати команду</button>
+   <label><input type="checkbox" ${S.shuf?'checked':''} onchange="S.shuf=this.checked;save()"> Випадкове жеребкування</label></div>
+  <div class="row"><button class="go" onclick="start()">▶ Почати турнір</button></div></section>`;
+}
+function add(){S.teams.push('Команда '+(S.teams.length+1));save();render();const a=document.querySelectorAll('.tr input');a[a.length-1].focus();a[a.length-1].select()}
+function rm(i){if(S.teams.length<=2){alert('Потрібно мінімум 2 команди');return}S.teams.splice(i,1);save();render()}
+function back(){if(confirm('Повернутися до налаштувань? Поточна сітка й результати будуть скинуті.')){S.started=false;S.rounds=[];S.third=null;S.champ=null;save();render()}}
+function fs(){document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen().catch(()=>{})}
+document.addEventListener('fullscreenchange',()=>document.body.classList.toggle('proj',!!document.fullscreenElement));
+
+/* ---------- переможець ---------- */
+function podium(){
+  const f=S.rounds[S.rounds.length-1][0],w=win(f);if(w==null)return;
+  const s2=lose(f),s3=S.third?win(S.third):null;
+  const pic=isBS()?`<img src="${TROPHY}" alt="Кубок" onerror="this.outerHTML='<div class=tp>'+trophySvg(S.ac)+'</div>'">`:`<div class="tp">${trophySvg(S.ac)}</div>`;
+  $('#ov').innerHTML=`<div class="pd">${pic}
+  <p class="k">Переможець турніру</p><h1>${esc(S.teams[w])}</h1>
+  <p class="s">🥈 ${s2!=null?esc(S.teams[s2]):'—'}${s3!=null?' &nbsp; 🥉 '+esc(S.teams[s3]):''}</p>
+  <button class="go" onclick="closeP()">Закрити</button></div>`;
+  $('#ov').classList.add('on');confetti();
+}
+function closeP(){$('#ov').classList.remove('on');cancelAnimationFrame(raf);const c=$('#cf');c.getContext('2d').clearRect(0,0,c.width,c.height)}
+let raf;
+function confetti(){
+  const c=$('#cf'),x=c.getContext('2d');c.width=innerWidth;c.height=innerHeight;
+  const cols=[S.ac,'#7b2cff','#00e5ff','#ff2d95','#ffffff'];
+  const P=Array.from({length:220},()=>({x:Math.random()*c.width,y:-Math.random()*c.height,vx:Math.random()*2-1,vy:2+Math.random()*4,s:6+Math.random()*7,r:Math.random()*6,vr:Math.random()*.3-.15,c:cols[Math.random()*cols.length|0]}));
+  cancelAnimationFrame(raf);
+  (function f(){
+    x.clearRect(0,0,c.width,c.height);
+    P.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.r+=p.vr;if(p.y>c.height){p.y=-10;p.x=Math.random()*c.width}
+      x.save();x.translate(p.x,p.y);x.rotate(p.r);x.fillStyle=p.c;x.fillRect(-p.s/2,-p.s/4,p.s,p.s/2);x.restore()});
+    raf=requestAnimationFrame(f);
+  })();
+}
+render();
+</script>
+</body>
+</html>
